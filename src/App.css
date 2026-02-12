@@ -1,0 +1,483 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #f5f5f0 0%, #e8ede8 100%);
+  min-height: 100vh;
+}
+
+.App {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
+/* Header */
+.app-header {
+  text-align: center;
+  padding: 30px 20px;
+  margin-bottom: 20px;
+}
+
+.app-header h1 {
+  color: #87a96b;
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #9b7ebd;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+/* Filter Tabs */
+.filter-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  background: white;
+  padding: 8px;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.filter-tabs button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-tabs button.active {
+  background: linear-gradient(135deg, #87a96b 0%, #9b7ebd 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(135, 169, 107, 0.3);
+}
+
+/* Add Button */
+.add-button {
+  position: fixed;
+  bottom: 30px;
+  right: 50%;
+  transform: translateX(50%);
+  background: linear-gradient(135deg, #87a96b 0%, #9b7ebd 100%);
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(135, 169, 107, 0.4);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.add-button:hover {
+  transform: translateX(50%) translateY(-2px);
+  box-shadow: 0 6px 25px rgba(135, 169, 107, 0.5);
+}
+
+.add-button:active {
+  transform: translateX(50%) translateY(0);
+}
+
+/* Moments List */
+.moments-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.moment-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.moment-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.moment-card.completed {
+  border-left: 4px solid #9b7ebd;
+}
+
+.moment-card.upcoming {
+  border-left: 4px solid #87a96b;
+}
+
+.moment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.moment-title {
+  font-size: 1.3rem;
+  color: #333;
+  font-weight: 600;
+  flex: 1;
+}
+
+.moment-status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.moment-status.completed {
+  background: #f3e8ff;
+  color: #9b7ebd;
+}
+
+.moment-status.upcoming {
+  background: #e8f5e9;
+  color: #87a96b;
+}
+
+.moment-date {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.moment-description {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.moment-category {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #f0f0f0;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.moment-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.moment-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.moment-photo:hover {
+  transform: scale(1.05);
+}
+
+.moment-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.moment-actions button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.complete-btn {
+  background: linear-gradient(135deg, #87a96b 0%, #9b7ebd 100%);
+  color: white;
+}
+
+.delete-btn {
+  background: #fee;
+  color: #d33;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #666;
+}
+
+/* Login Screen */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.login-box {
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-box h1 {
+  color: #87a96b;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.login-box p {
+  color: #9b7ebd;
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.login-input {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: #87a96b;
+}
+
+.login-button {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #87a96b 0%, #9b7ebd 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(135, 169, 107, 0.4);
+}
+
+.login-error {
+  color: #d33;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+/* Modal/Form Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 24px;
+  padding: 30px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.modal-header h2 {
+  color: #87a96b;
+  font-size: 1.8rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.close-button:hover {
+  background: #f0f0f0;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #87a96b;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #87a96b 0%, #9b7ebd 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(135, 169, 107, 0.4);
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Photo upload */
+.photo-upload {
+  border: 2px dashed #9b7ebd;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.photo-upload:hover {
+  border-color: #87a96b;
+  background: #f9f9f9;
+}
+
+.photo-upload input {
+  display: none;
+}
+
+.photo-preview {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+}
+
+.photo-preview img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .app-header h1 {
+    font-size: 2rem;
+  }
+  
+  .moment-title {
+    font-size: 1.1rem;
+  }
+  
+  .modal-content {
+    padding: 20px;
+  }
+}
