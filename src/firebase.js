@@ -5,12 +5,12 @@ import { getStorage } from 'firebase/storage';
 // TODO: Replace with your Firebase config from Firebase Console
 // You'll get this when you create a Firebase project
 const firebaseConfig = {
-  apiKey: "AIzaSyAt2fEUd2QxWRsHhpzfGrrEPjmxo0rLdUA",
-  authDomain: "a-n-e-d947a.firebaseapp.com",
-  projectId: "a-n-e-d947a",
-  storageBucket: "a-n-e-d947a.firebasestorage.app",
-  messagingSenderId: "309050151737",
-  appId: "1:309050151737:web:e2e9e91eeb09e1fd6c8ee8"
+  apiKey: "AIzaSyAOqmWHHNxChnrWJhY-xdQGzPDnr9VnqqY",
+  authDomain: "a-and-e-830ab.firebaseapp.com",
+  projectId: "a-and-e-830ab",
+  storageBucket: "a-and-e-830ab.firebasestorage.app",
+  messagingSenderId: "657854266376",
+  appId: "1:657854266376:web:1ef093a261d1f75e02a5bd"
 };
 
 // Initialize Firebase
