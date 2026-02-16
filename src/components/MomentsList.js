@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { format } from 'date-fns';
 import CompleteMoment from './CompleteMoment';
+import PhotoLightbox from './PhotoLightbox';
 import { doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 function MomentsList({ moments }) {
   const [selectedMoment, setSelectedMoment] = useState(null);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const handleDelete = async (momentId) => {
     if (window.confirm('Are you sure you want to delete this moment?')) {
@@ -21,8 +23,7 @@ function MomentsList({ moments }) {
   if (moments.length === 0) {
     return (
       <div className="empty-state">
-        <h3>No moments yet</h3>
-        <p>Start adding some dreams to chase together! ✨</p>
+        <h3>Nothing here yet</h3>
       </div>
     );
   }
@@ -64,7 +65,7 @@ function MomentsList({ moments }) {
                     src={photo} 
                     alt={`Memory ${index + 1}`}
                     className="moment-photo"
-                    onClick={() => window.open(photo, '_blank')}
+                    onClick={() => setSelectedPhoto(photo)}
                   />
                 ))}
               </div>
@@ -74,9 +75,9 @@ function MomentsList({ moments }) {
               <p className="moment-description" style={{ 
                 marginTop: '15px', 
                 paddingTop: '15px', 
-                borderTop: '1px solid #f0f0f0',
+                borderTop: '1px solid rgba(232, 227, 216, 0.1)',
                 fontStyle: 'italic',
-                color: '#9b7ebd'
+                color: 'rgba(232, 227, 216, 0.6)'
               }}>
                 💭 {moment.completedNote}
               </p>
@@ -106,6 +107,13 @@ function MomentsList({ moments }) {
         <CompleteMoment 
           moment={selectedMoment}
           onClose={() => setSelectedMoment(null)}
+        />
+      )}
+
+      {selectedPhoto && (
+        <PhotoLightbox 
+          photoUrl={selectedPhoto} 
+          onClose={() => setSelectedPhoto(null)} 
         />
       )}
     </>

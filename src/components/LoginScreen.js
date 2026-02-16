@@ -12,7 +12,7 @@ function LoginScreen({ onLogin }) {
     if (code.toLowerCase() === CORRECT_CODE) {
       onLogin(true);
     } else {
-      setError('Hmm, that code doesn\'t look right... 💜');
+      setError('Incorrect code');
       setTimeout(() => setError(''), 3000);
     }
   };
@@ -20,8 +20,8 @@ function LoginScreen({ onLogin }) {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h1>Our Moments ✨</h1>
-        <p>Enter our secret code</p>
+        <h1>Ewan & [Partner Name]</h1>
+        <p>Enter code</p>
         <form onSubmit={handleSubmit}>
           <input
             type="password"

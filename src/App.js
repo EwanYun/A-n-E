@@ -2,15 +2,26 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import LoginScreen from './components/LoginScreen';
 import MomentsList from './components/MomentsList';
+import MemoriesTimeline from './components/MemoriesTimeline';
 import AddMoment from './components/AddMoment';
 import { db } from './firebase';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { differenceInDays } from 'date-fns';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [moments, setMoments] = useState([]);
   const [filter, setFilter] = useState('all'); // 'all', 'upcoming', 'completed'
+  const [daysTogether, setDaysTogether] = useState(0);
+
+  // Calculate days together
+  useEffect(() => {
+    const startDate = new Date('2025-08-09');
+    const today = new Date();
+    const days = differenceInDays(today, startDate);
+    setDaysTogether(days);
+  }, []);
 
   // Check if user is already authenticated
   useEffect(() => {
@@ -56,8 +67,8 @@ function App() {
   return (
     <div className="App">
       <header className="app-header">
-        <h1>Our Moments ✨</h1>
-        <p className="subtitle">Our adventures, together</p>
+        <h1>Ewey & Amey</h1>
+        <p className="subtitle">{daysTogether} days together</p>
       </header>
 
       <div className="filter-tabs">
@@ -81,10 +92,15 @@ function App() {
         </button>
       </div>
 
-      <MomentsList moments={filteredMoments} />
+      {/* Use timeline view for memories tab, regular list for others */}
+      {filter === 'completed' ? (
+        <MemoriesTimeline moments={filteredMoments} />
+      ) : (
+        <MomentsList moments={filteredMoments} />
+      )}
 
       <button className="add-button" onClick={() => setShowAddForm(true)}>
-        + Add a Moment
+        +
       </button>
 
       {showAddForm && (

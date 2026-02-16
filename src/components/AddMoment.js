@@ -31,7 +31,7 @@ function AddMoment({ onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.title.trim()) {
-      alert('Please add a title for this moment!');
+      alert('Please add a title');
       return;
     }
 
@@ -49,7 +49,7 @@ function AddMoment({ onClose }) {
       onClose();
     } catch (error) {
       console.error('Error adding moment:', error);
-      alert('Failed to add moment. Please try again.');
+      alert('Failed to add moment');
       setIsSubmitting(false);
     }
   };
@@ -58,38 +58,38 @@ function AddMoment({ onClose }) {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Add a Moment</h2>
+          <h2>Add Moment</h2>
           <button className="close-button" onClick={onClose}>×</button>
         </div>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="title">What do you want to do? *</label>
+            <label htmlFor="title">Title *</label>
             <input
               type="text"
               id="title"
               name="title"
               value={formData.title}
               onChange={handleChange}
-              placeholder="Visit the cherry blossoms..."
+              placeholder="What do you want to do?"
               required
               autoFocus
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">Any details?</label>
+            <label htmlFor="description">Description</label>
             <textarea
               id="description"
               name="description"
               value={formData.description}
               onChange={handleChange}
-              placeholder="What makes this special..."
+              placeholder="Details..."
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="date">When? (optional)</label>
+            <label htmlFor="date">Date</label>
             <input
               type="date"
               id="date"
@@ -120,7 +120,7 @@ function AddMoment({ onClose }) {
             className="submit-button"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Adding...' : 'Add Moment'}
+            {isSubmitting ? 'Adding...' : 'Add'}
           </button>
         </form>
       </div>

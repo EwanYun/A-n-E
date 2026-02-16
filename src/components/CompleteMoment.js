@@ -22,23 +22,21 @@ function CompleteMoment({ moment, onClose }) {
     try {
       // Compression options
       const options = {
-        maxSizeMB: 1, // Maximum file size in MB
-        maxWidthOrHeight: 1920, // Max width or height
-        useWebWorker: true, // Use web worker for better performance
-        fileType: 'image/jpeg' // Convert all images to JPEG
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+        fileType: 'image/jpeg'
       };
 
       // Compress and upload photos
       const photoUrls = [];
       for (let i = 0; i < photos.length; i++) {
-        setUploadProgress(`Compressing photo ${i + 1} of ${photos.length}...`);
+        setUploadProgress(`Compressing ${i + 1} of ${photos.length}...`);
         
-        // Compress the image
         const compressedFile = await imageCompression(photos[i], options);
         
-        setUploadProgress(`Uploading photo ${i + 1} of ${photos.length}...`);
+        setUploadProgress(`Uploading ${i + 1} of ${photos.length}...`);
         
-        // Upload compressed image to Firebase Storage
         const photoRef = ref(storage, `moments/${moment.id}/${Date.now()}_${photos[i].name}`);
         await uploadBytes(photoRef, compressedFile);
         const url = await getDownloadURL(photoRef);
@@ -47,10 +45,9 @@ function CompleteMoment({ moment, onClose }) {
 
       setUploadProgress('Saving...');
       
-      // Update the moment in Firestore
       await updateDoc(doc(db, 'moments', moment.id), {
         completed: true,
-        completedAt: new Date().toISOString(),
+        completedAt: moment.date || new Date().toISOString(),  // ← Use original date if exists
         photos: photoUrls,
         completedNote: note
       });
@@ -58,7 +55,7 @@ function CompleteMoment({ moment, onClose }) {
       onClose();
     } catch (error) {
       console.error('Error completing moment:', error);
-      alert('Failed to complete moment. Please try again.');
+      alert('Failed to complete moment');
       setIsUploading(false);
       setUploadProgress('');
     }
@@ -74,17 +71,17 @@ function CompleteMoment({ moment, onClose }) {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="note">How was it? ✨</label>
+            <label htmlFor="note">Notes</label>
             <textarea
               id="note"
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              placeholder="Share your thoughts about this moment..."
+              placeholder="How was it? (optional)"
             />
           </div>
 
           <div className="form-group">
-            <label>Add Photos</label>
+            <label>Photos</label>
             <div className="photo-upload" onClick={() => document.getElementById('photo-input').click()}>
               <input
                 id="photo-input"
@@ -93,9 +90,9 @@ function CompleteMoment({ moment, onClose }) {
                 multiple
                 onChange={handlePhotoChange}
               />
-              <p>📸 Click to add photos</p>
-              <p style={{ fontSize: '0.9rem', color: '#999', marginTop: '8px' }}>
-                You can select multiple photos
+              <p>📸 Add photos</p>
+              <p style={{ fontSize: '0.9rem', color: 'rgba(232, 227, 216, 0.6)', marginTop: '8px' }}>
+                Select multiple if you want
               </p>
             </div>
             {photos.length > 0 && (
@@ -116,7 +113,7 @@ function CompleteMoment({ moment, onClose }) {
             className="submit-button"
             disabled={isUploading}
           >
-            {isUploading ? uploadProgress || 'Processing...' : 'Mark as Complete'}
+            {isUploading ? uploadProgress || 'Processing...' : 'Complete'}
           </button>
         </form>
       </div>
