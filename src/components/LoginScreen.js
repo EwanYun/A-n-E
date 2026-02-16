@@ -5,7 +5,7 @@ function LoginScreen({ onLogin }) {
   const [error, setError] = useState('');
 
   // Set your shared access code here (you can change this to whatever you want)
-  const CORRECT_CODE = '0809';
+  const CORRECT_CODE = '0908';
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ function LoginScreen({ onLogin }) {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h1>Ewan & [Partner Name]</h1>
+        <h1>Ewan & Amey</h1>
         <p>Enter code</p>
         <form onSubmit={handleSubmit}>
           <input
