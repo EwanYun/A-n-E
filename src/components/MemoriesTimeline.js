@@ -8,8 +8,7 @@ function MemoriesTimeline({ moments }) {
   if (moments.length === 0) {
     return (
       <div className="empty-state">
-        <h3>No memories yet</h3>
-        <p>Complete some moments to start building your timeline</p>
+        <h3>Nothing here yet</h3>
       </div>
     );
   }
